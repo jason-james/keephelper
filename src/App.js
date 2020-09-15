@@ -195,7 +195,7 @@ function Controls(props) {
                 </div>
                 <div style={{textAlign: 'center', display: props.showRequestInfo ? 'block' : 'none'}}>
                     <div>Request accepted! Request ID: {props.requestId}</div>
-                    <div><a href={`https://ropsten.etherscan.io/tx/${props.txHash}`} target={"_blank"}>{props.txHash}</a></div>
+                    <div><a href={`https://ropsten.etherscan.io/tx/${props.txHash}`} target={"_blank"} style={{marginLeft: '-3rem'}}>{props.txHash}</a></div>
                 </div>
 
 
