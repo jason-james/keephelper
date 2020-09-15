@@ -244,7 +244,7 @@ async function getData(setError, setAddress, setRandomBeacon, requestId, setStdO
                 }
             }
         }
-        setOldEntries(rv)
+        setOldEntries(rv.reverse())
     } catch (e) {
         console.log(e);
         setError(true)
