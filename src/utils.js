@@ -12,3 +12,7 @@ export function formatAmount(amount, decimals) {
 export function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function shortenEthAddress(address) {
+  return address.substr(0,8) + "..." +address.substr(34,8)
+}

@@ -1,5 +1,5 @@
 import Web3Constructor from "web3";
-import { sleep } from "./utils";
+import { sleep } from "../utils";
 import React, { createContext, useContext, useState } from "react";
 
 export const Web3Context = createContext(null);

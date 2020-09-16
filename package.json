@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@keep-network/keep-core": "^1.3.0-rc.1",
+    "@keep-network/tbtc": "^1.1.0",
     "antd": "^4.6.4",
     "bignumber": "^1.1.0",
     "eth-revert-reason": "^1.0.3",

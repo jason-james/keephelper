@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useWeb3 } from "../network";
+import { useWeb3 } from "../components/Web3";
 import keepLogo from "../images/keephelper_logo.png";
 import loadingSpinner from "../images/infinityLoader.svg";
 import RandomBeaconImpl from "@keep-network/keep-core/artifacts/KeepRandomBeaconServiceImplV1.json";
