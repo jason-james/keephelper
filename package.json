@@ -12,6 +12,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-motion": "^0.5.2",
+    "react-router-dom": "^5.2.0",
     "truffle-contract": "^4.0.31",
     "web3": "^1.2.11"
   },
