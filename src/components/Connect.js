@@ -27,8 +27,9 @@ export function Connect(props) {
         >
           <Card
             onClick={connect}
+            className={'green-shadow'}
             hoverable
-            style={{ width: 450, margin: "15% 38% 0 38%", zIndex: 99999 }}
+            style={{ width: 450, margin: "15% 38% 0 38%", borderRadius: '0px' }}
           >
             <img
               alt="metmask icon"
@@ -43,21 +44,6 @@ export function Connect(props) {
               }
               description="MetaMask is crypto wallet & gateway to blockchain apps"
             />
-          </Card>
-          <Card
-            style={{
-              width: 450,
-              height: 230,
-              margin: "-10.9% 36.9% 0px",
-              backgroundColor: "#48dbb4"
-            }}
-          >
-            <img
-              alt="example"
-              src={metamaskIcon}
-              style={{ width: 80, paddingBottom: "2rem" }}
-            />
-            <Meta title="Connect With MetaMask" description="" />
           </Card>
         </div>
       </Content>

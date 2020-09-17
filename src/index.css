@@ -213,15 +213,15 @@ a {
   background-color: #48dbb4;
 }
 
-.a {
+.table-a {
    color: #48dbb4;
  }
 
-.a:hover {
+.table-a:hover {
   color: #0a0806
 }
 
-a:link {
+.table-a:link {
   color: #48dbb4
 }
 
@@ -280,3 +280,13 @@ a:link {
   background: #0a0806;
 }
 
+.green-shadow {
+  -webkit-box-shadow: -18px 18px 0px 2.5px #48dbb4;
+  -moz-box-shadow: -18px 18px 0px 2.5px #48dbb4;
+  box-shadow: -18px 18px 0px 2.5px #48dbb4;
+}
+
+.sidebar-logo {
+  text-align: center;
+  margin: 15px;
+}

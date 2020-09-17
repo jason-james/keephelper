@@ -6,6 +6,7 @@ import RandomBeaconImpl from "@keep-network/keep-core/artifacts/KeepRandomBeacon
 
 import { Controls } from "../components/RandomBeacon/Controls";
 import { CharSpinners } from "../components/RandomBeacon/AlphabetSpinners";
+import {message} from "antd";
 
 const getRevertReason = require("eth-revert-reason");
 
@@ -79,9 +80,11 @@ function RandomBeacon() {
             "ropsten"
           );
           reason = 'Error: "' + reason.toString() + '". Please try again.';
+          message.error(reason);
           setStdOut(reason.substr(0, 50) + "...");
           setLoading(false);
         } catch (e2) {
+          message.error("Error: Unknown error. Please try again.");
           setStdOut("Error: Unknown error. Please try again.");
           setLoading(false);
         }
@@ -185,6 +188,7 @@ async function getData(
   if (randomBeacon) {
     randomBeacon.events.RelayEntryGenerated(null, (error, event) => {
       if (event.returnValues.requestId === requestId) {
+        message.success(`Entry generated! It's: ${event.returnValues.entry}`, 30);
         setStdOut(event.returnValues.entry);
         setTxHash(event.transactionHash);
         setLoading(false);

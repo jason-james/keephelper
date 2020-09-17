@@ -62,6 +62,7 @@ const getLiquidationFeedColumns = callbackFn => {
         <a
           href={"https://ropsten.etherscan.io/address/" + text}
           target={"_blank"}
+          className={'table-a'}
         >
           {shortenEthAddress(text)}
         </a>
@@ -93,7 +94,7 @@ const getLiquidationFeedColumns = callbackFn => {
       render: text => text + " %"
     },
     {
-      title: "Expires",
+      title: "Can Notify At",
       dataIndex: "expiry",
       key: "expiry",
       render: text => new Date(text).toLocaleString()
@@ -184,6 +185,7 @@ const getCurrentlyLiquidatingColumns = callbackFn => {
         <a
           href={"https://ropsten.etherscan.io/address/" + text}
           target={"_blank"}
+          className={'table-a'}
         >
           {shortenEthAddress(text)}
         </a>
@@ -246,6 +248,7 @@ const past_liquidation_columns = [
       <a
         href={"https://ropsten.etherscan.io/address/" + text}
         target={"_blank"}
+        className={'table-a'}
       >
         {shortenEthAddress(text)}
       </a>
