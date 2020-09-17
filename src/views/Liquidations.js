@@ -431,9 +431,21 @@ export function Liquidations(props) {
         from: userAddress
       })
       .on("receipt", function(receipt) {
-        message.success(
-          `Auction purchase on ${record.depositContractAddress} was successful.`
-        );
+        contract.methods
+            .withdrawFunds()
+            .send({
+              from: userAddress
+            })
+            .on("receipt", function(receipt) {
+              message.success(
+                  `Auction purchase on ${record.depositContractAddress} was successful. Sent ${record.auctionValue} to ${userAddress}`
+              , 30);
+            })
+            .on("error", function(error, receipt) {
+              message.error(
+                  `Auction purchase on ${record.depositContractAddress} was successful but could not withdraw, please withdraw manually. Deposit address: ${record.depositContractAddress}. Error message: ${error.message}`
+              , 30);
+            })
       })
       .on("error", function(error, receipt) {
         message.error(error.message);
@@ -512,7 +524,6 @@ const getAllDeposits = async (contract, web3) => {
     console.log(e);
   }
   let processed = await processAllDeposits(deposits, web3);
-  console.log(processed);
   return processed;
 };
 
