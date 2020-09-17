@@ -11,7 +11,8 @@ import {
   Tag,
   Button,
   message,
-  List
+  List,
+  Progress
 } from "antd";
 import { shortenEthAddress } from "../utils";
 const { TabPane } = Tabs;
@@ -334,6 +335,7 @@ export function Liquidations(props) {
   const [liquidating, setLiquidating] = useState([]);
   const [pastLiquidations, setPastLiquidations] = useState([]);
   const [loading, setLoading] = useState(null);
+  const [loadingPercent, setLoadingPercent] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
@@ -347,7 +349,7 @@ export function Liquidations(props) {
         PAST_LIQUIDATIONS,
         FEED,
         CURRENTLY_LIQUIDATING
-      } = await getAllDeposits(contract, web3);
+      } = await getAllDeposits(contract, web3, setLoadingPercent);
       setFeed(FEED.reverse());
       setLiquidating(CURRENTLY_LIQUIDATING.reverse());
       setPastLiquidations(PAST_LIQUIDATIONS.reverse());
@@ -507,6 +509,7 @@ export function Liquidations(props) {
         >
           TBTC Liquidations (Last 75000 blocks)
         </Header>
+        {loading && <Progress percent={loadingPercent} status="active"/>}
         <div className="card-container">
           <Tabs type="card" style={{ height: "85vh" }}>
             <TabPane tab="Feed" key="1">
@@ -548,7 +551,7 @@ export function Liquidations(props) {
   );
 }
 
-const getAllDeposits = async (contract, web3) => {
+const getAllDeposits = async (contract, web3, setLoadingPercent) => {
   let deposits;
   try {
     deposits = await contract.getPastEvents("Created", {
@@ -559,11 +562,11 @@ const getAllDeposits = async (contract, web3) => {
   } catch (e) {
     console.log(e);
   }
-  let processed = await processAllDeposits(deposits, web3);
+  let processed = await processAllDeposits(deposits, web3, setLoadingPercent);
   return processed;
 };
 
-const processAllDeposits = async (deposits, web3) => {
+const processAllDeposits = async (deposits, web3, setLoadingPercent) => {
   let FEED = [];
   let CURRENTLY_LIQUIDATING = [];
   let PAST_LIQUIDATIONS = [];
@@ -575,6 +578,7 @@ const processAllDeposits = async (deposits, web3) => {
   let auctionValue;
   let rv;
   for (let i = 0; i < deposits.length; i++) {
+    setLoadingPercent(((i / deposits.length) * 100).toFixed(0))
     let contract = new web3.eth.Contract(
       DepositJSON.abi,
       deposits[i].returnValues._depositContractAddress
