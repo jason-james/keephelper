@@ -102,7 +102,7 @@ function RandomBeacon() {
       }}
     >
       {!loading && (
-        <img src={keepLogo} width={350} style={{ marginBottom: "4rem" }} />
+        <img src={keepLogo} width={300} style={{ marginBottom: "4rem" }} />
       )}
       {loading && (
         <img

@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import KeepHelperLogo from '../images/keephelper_logo_light.png'
-import KeepHelperLogoText from '../images/keephelper_text_2.png'
+import KeepHelperLogoText from '../images/keephelper_text_2.svg'
 
 export function SideNav(props) {
   const [collapsed, setCollapsed] = useState(false);

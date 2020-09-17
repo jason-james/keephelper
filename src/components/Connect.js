@@ -2,6 +2,7 @@ import React from "react";
 import Layout from "antd/es/layout";
 import { Card } from "antd";
 import metamaskIcon from "../images/metamask.svg";
+import KeepHelperLogoText from "../images/keephelper_text_2.svg";
 const { Content } = Layout;
 const { Meta } = Card;
 
@@ -25,11 +26,12 @@ export function Connect(props) {
           className="site-layout-background"
           style={{ padding: 24, minHeight: 360, textAlign: "center" }}
         >
+          <div className="sidebar-logo"  ><img src={KeepHelperLogoText} height={180} style={{marginTop: '5rem'}}></img></div>
           <Card
             onClick={connect}
             className={'green-shadow'}
             hoverable
-            style={{ width: 450, margin: "15% 38% 0 38%", borderRadius: '0px' }}
+            style={{ width: 450, margin: "5% 38% 0 38%", borderRadius: '0px' }}
           >
             <img
               alt="metmask icon"
