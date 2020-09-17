@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useWeb3 } from "../components/Web3";
 import TBTCSystemJSON from "@keep-network/tbtc/artifacts/TBTCSystem.json";
+import TBTCTokenJSON from "@keep-network/tbtc/artifacts/ERC20";
 import DepositJSON from "@keep-network/tbtc/artifacts/Deposit.json";
 import {
   Tabs,
@@ -17,9 +18,9 @@ const { TabPane } = Tabs;
 const { Content, Header } = Layout;
 
 // Integer constants
-const COURTESY_TIMEOUT =  process.env.REACT_APP_COURTESY_TIMEOUT * 1000; // 6 hours from event user can liquidate
-const SIGNATURE_TIMEOUT =  process.env.REACT_APP_SIGNATURE_TIMEOUT * 1000; // 2 hours
-const PROOF_TIMEOUT =  process.env.REACT_APP_PROOF_TIMEOUT * 1000; // 6 hours
+const COURTESY_TIMEOUT = process.env.REACT_APP_COURTESY_TIMEOUT * 1000; // 6 hours from event user can liquidate
+const SIGNATURE_TIMEOUT = process.env.REACT_APP_SIGNATURE_TIMEOUT * 1000; // 2 hours
+const PROOF_TIMEOUT = process.env.REACT_APP_PROOF_TIMEOUT * 1000; // 6 hours
 const DEPOSIT_STATES = {
   // DOES NOT EXIST YET
   0: "START",
@@ -62,7 +63,7 @@ const getLiquidationFeedColumns = callbackFn => {
         <a
           href={"https://ropsten.etherscan.io/address/" + text}
           target={"_blank"}
-          className={'table-a'}
+          className={"table-a"}
         >
           {shortenEthAddress(text)}
         </a>
@@ -185,7 +186,7 @@ const getCurrentlyLiquidatingColumns = callbackFn => {
         <a
           href={"https://ropsten.etherscan.io/address/" + text}
           target={"_blank"}
-          className={'table-a'}
+          className={"table-a"}
         >
           {shortenEthAddress(text)}
         </a>
@@ -248,7 +249,7 @@ const past_liquidation_columns = [
       <a
         href={"https://ropsten.etherscan.io/address/" + text}
         target={"_blank"}
-        className={'table-a'}
+        className={"table-a"}
       >
         {shortenEthAddress(text)}
       </a>
@@ -277,7 +278,7 @@ const past_liquidation_columns = [
     title: "ETH purchased",
     dataIndex: "auctionValue",
     key: "eth",
-    render: text => (text / 1e18)
+    render: text => text / 1e18
   },
   {
     title: "State",
@@ -425,27 +426,62 @@ export function Liquidations(props) {
       DepositJSON.abi,
       record.depositContractAddress
     );
-    contract.methods
-      .purchaseSignerBondsAtAuction()
-      .send({
-        from: userAddress
-      })
+    let tBtcContract = new w.eth.Contract(
+      TBTCTokenJSON.abi,
+      process.env.REACT_APP_TBTC_TOKEN_CONTRACT_ADDRESS
+    );
+
+    tBtcContract.methods
+      .approve(record.depositContractAddress, record.lotSizeTbtc)
+      .send({ from: userAddress })
       .on("receipt", function(receipt) {
+        message.success(
+          `Approved spend of ${
+            record.lotSizeTbtc / 1e18
+          } tBTC! Next, confirm the liquidation transaction.`,
+          15
+        );
         contract.methods
-            .withdrawFunds()
-            .send({
-              from: userAddress
-            })
-            .on("receipt", function(receipt) {
-              message.success(
-                  `Auction purchase on ${record.depositContractAddress} was successful. Sent ${record.auctionValue} to ${userAddress}`
-              , 30);
-            })
-            .on("error", function(error, receipt) {
-              message.error(
-                  `Auction purchase on ${record.depositContractAddress} was successful but could not withdraw, please withdraw manually. Deposit address: ${record.depositContractAddress}. Error message: ${error.message}`
-              , 30);
-            })
+          .purchaseSignerBondsAtAuction()
+          .send({
+            from: userAddress
+          })
+          .on("receipt", function(receipt) {
+            message.success(
+                `Deposit ${
+                    record.depositContractAddress
+                } successfully liquidated! Value: ${
+                    record.auctionValue / 1e18
+                } ETH. Approve the upcoming transaction to send the funds to your account.`,
+                30
+            );
+            contract.methods
+              .withdrawFunds()
+              .send({
+                from: userAddress
+              })
+              .on("receipt", function(receipt) {
+                message.success(
+                  `Withdrawal successful, your ETH has been transferred to your address: ${
+                      userAddress
+                  }.`,
+                  30
+                );
+              })
+              .on("error", function(error, receipt) {
+                message.error(
+                  `Auction purchase on ${
+                    record.depositContractAddress
+                  } was successful but could not withdraw, please withdraw manually. Deposit address: ${
+                    record.depositContractAddress
+                  }. Error message: ${error.message}`,
+                  30
+                );
+              });
+          })
+          .on("error", function(error, receipt) {
+            message.error(error.message);
+          });
       })
       .on("error", function(error, receipt) {
         message.error(error.message);
