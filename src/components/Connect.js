@@ -19,7 +19,7 @@ export function Connect(props) {
     try {
       await window.ethereum.enable();
       if (
-        window.ethereum.networkVersion !==
+        window.ethereum.networkVersion !=
         process.env.REACT_APP_ETHEREUM_NETWORK_VERSION
       ) {
         message.error(
