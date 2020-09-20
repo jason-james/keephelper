@@ -340,6 +340,7 @@ export function Liquidations(props) {
   const [loadingPercent, setLoadingPercent] = useState(0);
 
   useEffect(() => {
+    document.title = `Liquidations | KeepHelper`;
     const getData = async () => {
       let contract = await getContract(
         TBTCSystemJSON.abi,

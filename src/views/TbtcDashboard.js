@@ -62,6 +62,7 @@ export function TbtcDashboard() {
   const [loading, setLoading] = useState(null);
 
   useEffect(() => {
+    document.title = `TBTC Dashboard | KeepHelper`;
     const getData = async () => {
       setLoading(true);
 

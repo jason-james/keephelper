@@ -25,6 +25,7 @@ function RandomBeacon() {
   const { getContract, getWeb3, getAccounts } = useWeb3();
 
   useEffect(() => {
+    document.title = `Random Beacon | KeepHelper`;
     const fetchData = async () => {
       try {
         await getData(
