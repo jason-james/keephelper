@@ -5,7 +5,8 @@ import Sider from "antd/es/layout/Sider";
 import {
   NumberOutlined,
   StopOutlined,
-  SlidersOutlined
+  SlidersOutlined,
+  RadarChartOutlined
 } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import KeepHelperLogo from '../images/keephelper_logo_light.png'
@@ -25,13 +26,19 @@ export function SideNav(props) {
 
       <Menu theme="dark" mode="inline">
         <Menu.Item
-          key="1"
-          icon={props.connected ? <NumberOutlined /> : <StopOutlined />}
+            key="1"
+            icon={props.connected ? <RadarChartOutlined /> : <StopOutlined />}
         >
-          <Link to="/">RandomBeacon</Link>
+          <Link to="/">tBTC Dashboard</Link>
         </Menu.Item>
         <Menu.Item
           key="2"
+          icon={props.connected ? <NumberOutlined /> : <StopOutlined />}
+        >
+          <Link to="/randombeacon">RandomBeacon</Link>
+        </Menu.Item>
+        <Menu.Item
+          key="3"
           icon={
             props.connected ? <SlidersOutlined /> : <StopOutlined />
           }

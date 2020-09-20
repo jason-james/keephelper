@@ -1,0 +1,62 @@
+import React from "react";
+import { Avatar, List, Tag } from "antd";
+import tBtcLogo from "../images/tbtc_logo.png";
+import { shortenEthAddress } from "../utils";
+
+export function MintCardList(props) {
+  return (
+    <List
+      itemLayout="vertical"
+      size="large"
+      pagination={{
+        onChange: page => {
+          console.log(page);
+        },
+        pageSize: 6
+      }}
+      dataSource={props.sourceData}
+      renderItem={(item, i) => (
+        <List.Item
+          key={item.transactionHash + i}
+          extra={
+            <div style={{ display: "flex", alignItems: "center" }}>
+              <span style={{ marginRight: "1.5rem" }}>
+                <div>
+                  To:
+                  <a
+                    href={`https://ropsten.etherscan.io/address/${
+                      item.returnValues.to
+                    }`}
+                    target={"_blank"}
+                  >
+                    {" "}
+                    {shortenEthAddress(item.returnValues.to)}
+                  </a>
+                </div>
+              </span>
+              <img src={tBtcLogo} height={40} />
+              <span>
+                <Tag className={"ml-2"} color={"cyan"}>
+                  {(item.returnValues.value / 1e18).toFixed(5)}
+                </Tag>
+              </span>
+            </div>
+          }
+        >
+          <List.Item.Meta
+            avatar={<Avatar src={item.avatar} />}
+            title={
+              <a
+                href={`https://ropsten.etherscan.io/tx/${item.transactionHash}`}
+                target={"_blank"}
+              >
+                {shortenEthAddress(item.transactionHash)}
+              </a>
+            }
+            description={new Date(item.timestamp).toLocaleString()}
+          />
+        </List.Item>
+      )}
+    />
+  );
+}

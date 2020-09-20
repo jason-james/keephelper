@@ -290,3 +290,59 @@ a {
   text-align: center;
   margin: 15px;
 }
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 2rem;
+}
+
+.ml-2 {
+  margin-left: 0.5rem;
+}
+
+.pg-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  border-bottom: 2px solid currentColor;
+
+}
+
+.dashboard-header {
+  border: 1px solid rgb(10, 8, 6);
+  background: white;
+  margin: 0 2rem;
+}
+
+.skeleton-dashboard-header {
+  border: 1px solid rgb(10, 8, 6);
+  background: white;
+  padding: 0 1rem;
+  margin: 0 2rem;
+}
+
+.dash-tabs {
+  width: 100%;
+}
+
+.ant-list-split .ant-list-item  {
+  border: 1px solid rgb(10, 8, 6);
+  margin: 1rem;
+}
+
+.ant-list-lg .ant-list-item {
+  padding: 16px 24px 0px;
+}
+
+.ant-list-split .ant-list-item:last-child {
+  border: 1px solid rgb(10, 8, 6);
+  margin: 1rem;
+}
+
+.ant-list-split.ant-list-something-after-last-item .ant-spin-container>.ant-list-items>.ant-list-item:last-child {
+  border: 1px solid rgb(10, 8, 6);
+  margin: 1rem;
+}
+
+.ant-list-vertical .ant-list-item-meta-title {
+  margin-bottom: 8px;
+}
+

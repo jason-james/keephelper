@@ -6,6 +6,7 @@ import { Layout } from "antd";
 import { SideNav } from "./components/SideNav";
 import { Connect } from "./components/Connect";
 import { Liquidations } from "./views/Liquidations";
+import {TbtcDashboard} from "./views/TbtcDashboard";
 
 function App() {
   const [connected, setConnected] = useState(null);
@@ -23,8 +24,11 @@ function App() {
                 <Route path="/liquidations">
                     <Liquidations/>
                 </Route>
-                <Route path="/">
+                <Route path="/randombeacon">
                     <RandomBeacon/>
+                </Route>
+                <Route path="/">
+                    <TbtcDashboard/>
                 </Route>
             </Switch>
           )}

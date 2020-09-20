@@ -22,12 +22,14 @@ const { Content, Header } = Layout;
 const COURTESY_TIMEOUT = process.env.REACT_APP_COURTESY_TIMEOUT * 1000; // 6 hours from event user can liquidate
 const SIGNATURE_TIMEOUT = process.env.REACT_APP_SIGNATURE_TIMEOUT * 1000; // 2 hours
 const PROOF_TIMEOUT = process.env.REACT_APP_PROOF_TIMEOUT * 1000; // 6 hours
-const DEPOSIT_STATES = {
+export const DEPOSIT_STATES = {
   // DOES NOT EXIST YET
   0: "START",
 
   // FUNDING FLOW
   1: "AWAITING_SIGNER_SETUP",
+  // Here, we send btc to an address, after its confirmed, we generate a proof that we did it
+  // If we are in AWAITING SIGNER SETUP, check the bitcoin address and see if there any deposit at all. If there is, check the confirmation progress against the tx hash
   2: "AWAITING_BTC_FUNDING_PROOF",
 
   // FAILED SETUP
@@ -275,12 +277,12 @@ const past_liquidation_columns = [
     key: "tbtc",
     render: text => text / 1e18
   },
-  {
-    title: "ETH purchased",
-    dataIndex: "auctionValue",
-    key: "eth",
-    render: text => text / 1e18
-  },
+  // {
+  //   title: "ETH purchased",
+  //   dataIndex: "auctionValue",
+  //   key: "eth",
+  //   render: text => text / 1e18
+  // },
   {
     title: "State",
     dataIndex: "state",
@@ -350,6 +352,7 @@ export function Liquidations(props) {
         FEED,
         CURRENTLY_LIQUIDATING
       } = await getAllDeposits(contract, web3, setLoadingPercent);
+      console.log(PAST_LIQUIDATIONS)
       setFeed(FEED.reverse());
       setLiquidating(CURRENTLY_LIQUIDATING.reverse());
       setPastLiquidations(PAST_LIQUIDATIONS.reverse());
@@ -507,7 +510,7 @@ export function Liquidations(props) {
             background: "#0a0806"
           }}
         >
-          TBTC Liquidations (Last 75000 blocks)
+          <span className={'pg-title'}>TBTC Liquidations (Last 75000 blocks)</span>
         </Header>
         {loading && <Progress percent={loadingPercent} status="active"/>}
         <div className="card-container">
@@ -648,3 +651,4 @@ const processAllDeposits = async (deposits, web3, setLoadingPercent) => {
   }
   return { PAST_LIQUIDATIONS, FEED, CURRENTLY_LIQUIDATING };
 };
+
