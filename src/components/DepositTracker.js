@@ -5,7 +5,7 @@ import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import TBTC from "@keep-network/tbtc.js";
 import axios from "axios";
-import { shortenEthAddress } from "../utils";
+import {getTbtc, shortenEthAddress} from "../utils";
 import infinityLoader from "../images/infinityLoader.svg";
 
 am4core.useTheme(am4themes_animated);
@@ -114,7 +114,6 @@ async function getDepositChartData(web3, depositEvent) {
   );
   let state = await deposit.getCurrentState();
   let data;
-  console.log(state)
   if (state == 1) {
     data = [
       {
@@ -261,23 +260,3 @@ async function getDepositChartData(web3, depositEvent) {
   return data;
 }
 
-async function getTbtc(web3) {
-  const tbtc = await TBTC.withConfig({
-    web3: web3,
-    bitcoinNetwork: "testnet",
-    electrum: {
-      testnet: {
-        server: "electrumx-server.test.tbtc.network",
-        port: 50002,
-        protocol: "ssl"
-      },
-      testnetWS: {
-        server: "electrumx-server.test.tbtc.network",
-        port: 50003,
-        protocol: "ws"
-      }
-    }
-  });
-
-  return tbtc;
-}

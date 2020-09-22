@@ -47,7 +47,7 @@ export function DepositCardList(props) {
                   Keep Addr:{" "}
                   <a
                     href={`https://ropsten.etherscan.io/address/${
-                      item.returnValues._depositContractAddress
+                      item.returnValues._keepAddress
                     }`}
                     target={"_blank"}
                   >

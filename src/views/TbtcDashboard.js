@@ -14,6 +14,7 @@ import { MintCardList } from "../components/MintCardList";
 import { LineChart } from "../components/DualAxisLineChart";
 import { DepositTracker } from "../components/DepositTracker";
 import { SkeletonDashboard } from "../components/SkeletonDashboard";
+import { FindTdtID } from "../components/FindTdtID";
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
@@ -89,7 +90,6 @@ export function TbtcDashboard() {
       let userBalances = await getUserBalances(web3, userAddress);
       let tBtcStats = await getTbtcContractStats(tbtcVendingMachineContract);
       let mintStats = getMintTransactionsFromTransfers(transfers);
-
       setTransfers(transfers);
       setUserBalances(userBalances);
       setDeposits(deposits);
@@ -177,6 +177,16 @@ export function TbtcDashboard() {
                     </TabPane>
                     <TabPane tab="Mints" key="3">
                       <MintCardList sourceData={mints} />
+                    </TabPane>
+                    <TabPane tab="View Your Deposits" key="4">
+                      <FindTdtID
+                        deposits={deposits}
+                        sourceData={deposits}
+                        setTrackedDeposit={setTrackedDeposit}
+                        setDashboardTitle={setDashboardTitle}
+                        setDashboardSubtitle={setDashboardSubtitle}
+                        getWeb3={getWeb3}
+                      />
                     </TabPane>
                   </Tabs>
                 </div>

@@ -77,6 +77,24 @@ export function SkeletonDashboard() {
                     )}
                   />{" "}
                 </TabPane>
+
+                  <TabPane tab="View Your Deposits" key="4">
+                      <List
+                          itemLayout="vertical"
+                          size="large"
+                          dataSource={listData}
+                          renderItem={item => (
+                              <Skeleton active avatar>
+                                  <List.Item.Meta
+                                      avatar={<Avatar src={item.avatar} />}
+                                      title={<a href={item.href}>{item.title}</a>}
+                                      description={item.description}
+                                  />
+                                  {item.content}
+                              </Skeleton>
+                          )}
+                      />{" "}
+                  </TabPane>
               </Tabs>
             </div>
           </Col>

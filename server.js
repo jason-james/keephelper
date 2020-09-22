@@ -21,6 +21,15 @@ app.get('/btcAddress', async (req, res) => {
     }
 });
 
+app.get('/ethAddress', async (req, res) => {
+    try {
+        let ethAddressHistory = await axios.get(`https://api-ropsten.etherscan.io/api?module=account&action=txlist&address=${req.query.ethAddress}&startblock=0&endblock=99999999&sort=asc&apikey=YourApiKeyToken`)
+        res.send(ethAddressHistory.data.result)
+    } catch  (e) {
+        res.send(e)
+    }
+});
+
 if (process.env.NODE_ENV === 'production') {
     app.get('*', (req, res) => {
         res.sendFile(path.join(__dirname + '/build/index.html'));
