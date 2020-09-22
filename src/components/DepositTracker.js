@@ -3,7 +3,6 @@ import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
-import TBTC from "@keep-network/tbtc.js";
 import axios from "axios";
 import {getTbtc, shortenEthAddress} from "../utils";
 import infinityLoader from "../images/infinityLoader.svg";

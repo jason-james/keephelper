@@ -128,7 +128,13 @@ export function TbtcDashboard() {
               className="dashboard-header"
               onBack={() => resetDashboardInfo()}
               title={dashboardTitle}
-              tags={<Tag color="blue">Ropsten</Tag>}
+              tags={
+                <Tag color="blue">
+                  {process.env.REACT_APP_ETHEREUM_NETWORK_VERSION == 1
+                    ? "Mainnet"
+                    : "Ropsten"}
+                </Tag>
+              }
               subTitle={dashboardSubtitle}
               extra={<BalanceInfo balances={userBalances} />}
             >

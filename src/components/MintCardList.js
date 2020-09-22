@@ -24,7 +24,7 @@ export function MintCardList(props) {
                 <div>
                   To:
                   <a
-                    href={`https://ropsten.etherscan.io/address/${
+                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
                       item.returnValues.to
                     }`}
                     target={"_blank"}
@@ -47,7 +47,7 @@ export function MintCardList(props) {
             avatar={<Avatar src={item.avatar} />}
             title={
               <a
-                href={`https://ropsten.etherscan.io/tx/${item.transactionHash}`}
+                href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${item.transactionHash}`}
                 target={"_blank"}
               >
                 {shortenEthAddress(item.transactionHash)}

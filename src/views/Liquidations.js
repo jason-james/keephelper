@@ -62,7 +62,11 @@ const getLiquidationFeedColumns = callbackFn => {
       key: "id",
       render: text => (
         <a
-          href={"https://ropsten.etherscan.io/address/" + text}
+          href={`https://${
+            process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1
+              ? "ropsten."
+              : ""
+          }etherscan.io/address/${text}`}
           target={"_blank"}
           className={"table-a"}
         >
@@ -76,7 +80,11 @@ const getLiquidationFeedColumns = callbackFn => {
       key: "keep",
       render: text => (
         <a
-          href={"https://ropsten.etherscan.io/address/" + text}
+          href={`https://${
+            process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1
+              ? "ropsten."
+              : ""
+          }etherscan.io/address/${text}`}
           target={"_blank"}
         >
           {shortenEthAddress(text)}
@@ -185,7 +193,11 @@ const getCurrentlyLiquidatingColumns = callbackFn => {
       key: "id",
       render: text => (
         <a
-          href={"https://ropsten.etherscan.io/address/" + text}
+          href={`https://${
+            process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1
+              ? "ropsten."
+              : ""
+          }etherscan.io/address/${text}`}
           target={"_blank"}
           className={"table-a"}
         >
@@ -199,7 +211,11 @@ const getCurrentlyLiquidatingColumns = callbackFn => {
       key: "keep",
       render: text => (
         <a
-          href={"https://ropsten.etherscan.io/address/" + text}
+          href={`https://${
+            process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1
+              ? "ropsten."
+              : ""
+          }etherscan.io/address/${text}`}
           target={"_blank"}
         >
           {shortenEthAddress(text)}
@@ -248,7 +264,9 @@ const past_liquidation_columns = [
     key: "id",
     render: text => (
       <a
-        href={"https://ropsten.etherscan.io/address/" + text}
+        href={`https://${
+          process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? "ropsten." : ""
+        }etherscan.io/address/${text}`}
         target={"_blank"}
         className={"table-a"}
       >
@@ -262,7 +280,9 @@ const past_liquidation_columns = [
     key: "keep",
     render: text => (
       <a
-        href={"https://ropsten.etherscan.io/address/" + text}
+        href={`https://${
+          process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? "ropsten." : ""
+        }etherscan.io/address/${text}`}
         target={"_blank"}
       >
         {shortenEthAddress(text)}
@@ -351,7 +371,7 @@ export function Liquidations(props) {
         FEED,
         CURRENTLY_LIQUIDATING
       } = await getAllDeposits(contract, web3, setLoadingPercent);
-      console.log(PAST_LIQUIDATIONS)
+      console.log(PAST_LIQUIDATIONS);
       setFeed(FEED.reverse());
       setLiquidating(CURRENTLY_LIQUIDATING.reverse());
       setPastLiquidations(PAST_LIQUIDATIONS.reverse());
@@ -440,9 +460,8 @@ export function Liquidations(props) {
       .send({ from: userAddress })
       .on("receipt", function(receipt) {
         message.success(
-          `Approved spend of ${
-            record.lotSizeTbtc / 1e18
-          } tBTC! Next, confirm the liquidation transaction.`,
+          `Approved spend of ${record.lotSizeTbtc /
+            1e18} tBTC! Next, confirm the liquidation transaction.`,
           15
         );
         contract.methods
@@ -452,12 +471,11 @@ export function Liquidations(props) {
           })
           .on("receipt", function(receipt) {
             message.success(
-                `Deposit ${
-                    record.depositContractAddress
-                } successfully liquidated! Value: ${
-                    record.auctionValue / 1e18
-                } ETH. Approve the upcoming transaction to send the funds to your account.`,
-                30
+              `Deposit ${
+                record.depositContractAddress
+              } successfully liquidated! Value: ${record.auctionValue /
+                1e18} ETH. Approve the upcoming transaction to send the funds to your account.`,
+              30
             );
             contract.methods
               .withdrawFunds()
@@ -466,9 +484,7 @@ export function Liquidations(props) {
               })
               .on("receipt", function(receipt) {
                 message.success(
-                  `Withdrawal successful, your ETH has been transferred to your address: ${
-                      userAddress
-                  }.`,
+                  `Withdrawal successful, your ETH has been transferred to your address: ${userAddress}.`,
                   30
                 );
               })
@@ -509,9 +525,11 @@ export function Liquidations(props) {
             background: "#0a0806"
           }}
         >
-          <span className={'pg-title'}>TBTC Liquidations (Last 75000 blocks)</span>
+          <span className={"pg-title"}>
+            TBTC Liquidations (Last 75000 blocks)
+          </span>
         </Header>
-        {loading && <Progress percent={loadingPercent} status="active"/>}
+        {loading && <Progress percent={loadingPercent} status="active" />}
         <div className="card-container">
           <Tabs type="card" style={{ height: "85vh" }}>
             <TabPane tab="Feed" key="1">
@@ -580,7 +598,7 @@ const processAllDeposits = async (deposits, web3, setLoadingPercent) => {
   let auctionValue;
   let rv;
   for (let i = 0; i < deposits.length; i++) {
-    setLoadingPercent(((i / deposits.length) * 100).toFixed(0))
+    setLoadingPercent(((i / deposits.length) * 100).toFixed(0));
     let contract = new web3.eth.Contract(
       DepositJSON.abi,
       deposits[i].returnValues._depositContractAddress
@@ -650,4 +668,3 @@ const processAllDeposits = async (deposits, web3, setLoadingPercent) => {
   }
   return { PAST_LIQUIDATIONS, FEED, CURRENTLY_LIQUIDATING };
 };
-

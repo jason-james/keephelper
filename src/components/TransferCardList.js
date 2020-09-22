@@ -24,7 +24,7 @@ export function TransferCardList(props) {
                 <div>
                   From:{" "}
                   <a
-                    href={`https://ropsten.etherscan.io/address/${
+                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
                       item.returnValues.from
                     }`}
                     target={"_blank"}
@@ -35,7 +35,7 @@ export function TransferCardList(props) {
                 <div>
                   To:
                   <a
-                    href={`https://ropsten.etherscan.io/address/${
+                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
                       item.returnValues.to
                     }`}
                     target={"_blank"}
@@ -58,7 +58,7 @@ export function TransferCardList(props) {
             avatar={<Avatar src={item.avatar} />}
             title={
               <a
-                href={`https://ropsten.etherscan.io/tx/${item.transactionHash}`}
+                href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${item.transactionHash}`}
                 target={"_blank"}
               >
                 {shortenEthAddress(item.transactionHash)}

@@ -28,7 +28,7 @@ export function Controls(props) {
             <Tag color={"geekblue"} key={links.requested}>
               <a
                 target={"_blank"}
-                href={"https://ropsten.etherscan.io/tx/" + links.requested}
+                href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${links.requested}`}
               >
                 REQUESTED
               </a>
@@ -36,7 +36,7 @@ export function Controls(props) {
             <Tag color={"green"} key={links.generated}>
               <a
                 target={"_blank"}
-                href={"https://ropsten.etherscan.io/tx/" + links.generated}
+                href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${links.generated}`}
               >
                 GENERATED
               </a>
@@ -83,7 +83,7 @@ export function Controls(props) {
         <div>Request accepted! Request ID: {props.requestId}</div>
         <div>
           <a
-            href={`https://ropsten.etherscan.io/tx/${props.txHash}`}
+            href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${props.txHash}`}
             target={"_blank"}
             style={{ marginLeft: "-3rem" }}
           >

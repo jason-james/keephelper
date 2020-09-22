@@ -33,7 +33,7 @@ export function DepositCardList(props) {
                 <div>
                   Deposit Addr:{" "}
                   <a
-                    href={`https://ropsten.etherscan.io/address/${
+                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
                       item.returnValues._depositContractAddress
                     }`}
                     target={"_blank"}
@@ -46,7 +46,7 @@ export function DepositCardList(props) {
                 <div>
                   Keep Addr:{" "}
                   <a
-                    href={`https://ropsten.etherscan.io/address/${
+                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
                       item.returnValues._keepAddress
                     }`}
                     target={"_blank"}
@@ -70,7 +70,7 @@ export function DepositCardList(props) {
             avatar={<Avatar src={item.avatar} />}
             title={
               <a
-                href={`https://ropsten.etherscan.io/tx/${item.transactionHash}`}
+                href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/tx/${item.transactionHash}`}
                 target={"_blank"}
               >
                 {shortenEthAddress(item.transactionHash)}

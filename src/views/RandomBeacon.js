@@ -78,7 +78,7 @@ function RandomBeacon() {
           );
           let reason = await getRevertReason(
             errorObject.transactionHash,
-            "ropsten"
+            process.env.REACT_APP_ETHEREUM_NETWORK_VERSION == 1 ? "mainnet" : "ropsten"
           );
           reason = 'Error: "' + reason.toString() + '". Please try again.';
           message.error(reason);
