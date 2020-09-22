@@ -15,7 +15,7 @@ app.listen(port, () => {
 app.get('/btcAddress', async (req, res) => {
     try {
         let btcAddressHistory = await axios.get(`https://api.blockcypher.com/v1/btc/test3/addrs/${req.query.btcAddress}`)
-        res.send(btcAddressHistory)
+        res.send(btcAddressHistory.data)
     } catch  (e) {
         res.send(e)
     }

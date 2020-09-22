@@ -28,8 +28,6 @@ export const DEPOSIT_STATES = {
 
   // FUNDING FLOW
   1: "AWAITING_SIGNER_SETUP",
-  // Here, we send btc to an address, after its confirmed, we generate a proof that we did it
-  // If we are in AWAITING SIGNER SETUP, check the bitcoin address and see if there any deposit at all. If there is, check the confirmation progress against the tx hash
   2: "AWAITING_BTC_FUNDING_PROOF",
 
   // FAILED SETUP
