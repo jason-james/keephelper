@@ -20,8 +20,8 @@ export function MintCardList(props) {
           key={item.transactionHash + i}
           extra={
             <div style={{ display: "flex", alignItems: "center" }}>
-              <span style={{ marginRight: "1.5rem" }}>
-                <div>
+              <span className={'card-list-extras'} style={{ marginRight: "1.5rem" }}>
+                <div className={'card-list-mint-extras'}>
                   To:
                   <a
                     href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${

@@ -346,3 +346,13 @@ a {
   margin-bottom: 8px;
 }
 
+.figure-margin {
+  margin-bottom: 2rem;
+}
+
+@media only screen and (min-width: 1600px) {
+
+  .figure-margin {
+    margin-top: 6rem;
+  }
+}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, List, Tag, Button } from "antd";
+import {Row, Avatar, List, Tag, Button } from "antd";
 import { shortenEthAddress } from "../utils";
 
 export function DepositCardList(props) {
@@ -28,42 +28,45 @@ export function DepositCardList(props) {
         <List.Item
           key={item.transactionHash + i}
           extra={
-            <div style={{ display: "flex", alignItems: "center" }}>
-              <span style={{ marginRight: "1.5rem" }}>
+              <Row>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+              <span className={'card-list-extras'} style={{marginRight: '2rem'}}>
                 <div>
                   Deposit Addr:{" "}
-                  <a
-                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
-                      item.returnValues._depositContractAddress
-                    }`}
-                    target={"_blank"}
-                  >
+                    <a
+                        href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
+                            item.returnValues._depositContractAddress
+                        }`}
+                        target={"_blank"}
+                    >
                     {shortenEthAddress(
-                      item.returnValues._depositContractAddress
+                        item.returnValues._depositContractAddress
                     )}
                   </a>
                 </div>
                 <div>
                   Keep Addr:{" "}
-                  <a
-                    href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
-                      item.returnValues._keepAddress
-                    }`}
-                    target={"_blank"}
-                  >
+                    <a
+                        href={`https://${process.env.REACT_APP_ETHEREUM_NETWORK_VERSION != 1 ? 'ropsten.' : ''}etherscan.io/address/${
+                            item.returnValues._keepAddress
+                        }`}
+                        target={"_blank"}
+                    >
                     {shortenEthAddress(item.returnValues._keepAddress)}
                   </a>
                 </div>
               </span>
-              <span>
+                      <span>
                 <Button
-                  className={"btn-primary"}
-                  onClick={e => setTracked(e, item)}
+                    className={"btn-primary card-list-btn"}
+                    onClick={e => setTracked(e, item)}
                 >
                   Track Progress
                 </Button>
               </span>
-            </div>
+                  </div>
+              </Row>
+
           }
         >
           <List.Item.Meta

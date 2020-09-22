@@ -167,7 +167,34 @@ export function TbtcDashboard() {
               </Row>
             </PageHeader>
             <Row gutter={48} style={{ padding: "2rem" }}>
-              <Col lg={12} xl={12} xs={24}>
+              <Col lg={24} xl={24} xxl={12} md={24} xs={24} className={'figure-margin'}>
+                {trackedDeposit ? (
+                    <DepositTracker getWeb3={getWeb3} deposit={trackedDeposit} />
+                ) : (
+                    <LineChart
+                        key={chartData}
+                        chartData={chartData}
+                        formChartData={chartData => {
+                          if (!chartData) {
+                            return [[], [], []];
+                          }
+
+                          const data1 = [];
+                          const data2 = [];
+                          const xAxis = [];
+
+                          chartData.forEach((current, i) => {
+                            data1.push(current.numberOfTransfers);
+                            data2.push(current.value.toFixed(2));
+                            xAxis.push(chartData.length - i);
+                          });
+                          let rv = [xAxis, data1, data2];
+                          return rv;
+                        }}
+                    />
+                )}
+              </Col>
+              <Col lg={24} xl={24} xxl={12} md={24} xs={24}>
                 <div className="card-container dash-tabs">
                   <Tabs type="card">
                     <TabPane tab="Deposits" key="1">
@@ -197,33 +224,7 @@ export function TbtcDashboard() {
                   </Tabs>
                 </div>
               </Col>
-              <Col lg={12} xl={12} xs={24} style={{ marginTop: "6rem" }}>
-                {trackedDeposit ? (
-                  <DepositTracker getWeb3={getWeb3} deposit={trackedDeposit} />
-                ) : (
-                  <LineChart
-                    key={chartData}
-                    chartData={chartData}
-                    formChartData={chartData => {
-                      if (!chartData) {
-                        return [[], [], []];
-                      }
 
-                      const data1 = [];
-                      const data2 = [];
-                      const xAxis = [];
-
-                      chartData.forEach((current, i) => {
-                        data1.push(current.numberOfTransfers);
-                        data2.push(current.value.toFixed(2));
-                        xAxis.push(chartData.length - i);
-                      });
-                      let rv = [xAxis, data1, data2];
-                      return rv;
-                    }}
-                  />
-                )}
-              </Col>
             </Row>
           </Content>
         </Layout>
