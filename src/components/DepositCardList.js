@@ -30,7 +30,7 @@ export function DepositCardList(props) {
           extra={
               <Row>
                   <div style={{ display: "flex", alignItems: "center" }}>
-              <span className={'card-list-extras'} style={{marginRight: '2rem'}}>
+              <span className={'card-list-extras deposit-card'}>
                 <div>
                   Deposit Addr:{" "}
                     <a

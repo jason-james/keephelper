@@ -356,3 +356,24 @@ a {
     margin-top: 6rem;
   }
 }
+
+.card-list-extras {
+  margin-right: 2rem;
+}
+
+@media only screen and (min-width: 1600px) and (max-width: 1700px) {
+
+  .figure-margin {
+    margin-top: 6rem;
+  }
+
+  .card-list-btn {
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .deposit-card {
+    margin-top: -3rem;
+    margin-right: -8rem
+  }
+}

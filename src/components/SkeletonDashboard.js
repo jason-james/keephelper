@@ -22,7 +22,20 @@ export function SkeletonDashboard() {
         </Row>
 
         <Row gutter={48} style={{ padding: "2rem" }}>
-          <Col lg={12} xl={12} xs={24}>
+            <Col lg={24} xl={24} xxl={12} md={24} xs={24} style={{ marginTop: "4rem" }}>
+                <div
+                    style={{
+                        height: "100%",
+                        width: "100%",
+                        backgroundColor: "white",
+                        textAlign: "center",
+                        paddingTop: "33%"
+                    }}
+                >
+                    <Skeleton.Avatar active />
+                </div>
+            </Col>
+          <Col lg={24} xl={24} xxl={12} md={24} xs={24}>
             <div className="card-container dash-tabs">
               <Tabs type="card">
                   <TabPane tab="Deposits" key="1">
@@ -98,19 +111,7 @@ export function SkeletonDashboard() {
               </Tabs>
             </div>
           </Col>
-          <Col lg={12} xl={12} xs={24} style={{ marginTop: "4rem" }}>
-            <div
-              style={{
-                height: "100%",
-                width: "100%",
-                backgroundColor: "white",
-                textAlign: "center",
-                paddingTop: "33%"
-              }}
-            >
-              <Skeleton.Avatar active />
-            </div>
-          </Col>
+
         </Row>
       </Content>
     </Layout>
