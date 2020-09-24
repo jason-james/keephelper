@@ -61,11 +61,12 @@ export function TbtcDashboard() {
     `Contract: ${process.env.REACT_APP_TBTC_TOKEN_CONTRACT_ADDRESS}`
   );
   const [loading, setLoading] = useState(null);
+  const [loadedOnce, setLoadedOnce] = useState(false)
 
-  useEffect(() => {
+  useEffect( () => {
     document.title = `TBTC Dashboard | KeepHelper`;
     const getData = async () => {
-      setLoading(true);
+      if (!loadedOnce) { setLoading(true); }
 
       let tbtcTokenContract = await getContract(
         TBTCTokenJSON.abi,
@@ -99,9 +100,14 @@ export function TbtcDashboard() {
       setMints(mintStats.mints);
       setCurrentSupply(mintStats.currentSupply);
       setLoading(false);
+      setLoadedOnce(true)
     };
     getData();
-  }, []);
+    let timeout = window.setInterval(async () => {
+      getData();
+    }, 15000);
+    return () => clearInterval(timeout);
+  }, [loadedOnce]);
 
   const resetDashboardInfo = () => {
     setTrackedDeposit(null);
@@ -167,31 +173,38 @@ export function TbtcDashboard() {
               </Row>
             </PageHeader>
             <Row gutter={48} style={{ padding: "2rem" }}>
-              <Col lg={24} xl={24} xxl={12} md={24} xs={24} className={'figure-margin'}>
+              <Col
+                lg={24}
+                xl={24}
+                xxl={12}
+                md={24}
+                xs={24}
+                className={"figure-margin"}
+              >
                 {trackedDeposit ? (
-                    <DepositTracker getWeb3={getWeb3} deposit={trackedDeposit} />
+                  <DepositTracker getWeb3={getWeb3} deposit={trackedDeposit} />
                 ) : (
-                    <LineChart
-                        key={chartData}
-                        chartData={chartData}
-                        formChartData={chartData => {
-                          if (!chartData) {
-                            return [[], [], []];
-                          }
+                  <LineChart
+                    key={chartData}
+                    chartData={chartData}
+                    formChartData={chartData => {
+                      if (!chartData) {
+                        return [[], [], []];
+                      }
 
-                          const data1 = [];
-                          const data2 = [];
-                          const xAxis = [];
+                      const data1 = [];
+                      const data2 = [];
+                      const xAxis = [];
 
-                          chartData.forEach((current, i) => {
-                            data1.push(current.numberOfTransfers);
-                            data2.push(current.value.toFixed(2));
-                            xAxis.push(chartData.length - i);
-                          });
-                          let rv = [xAxis, data1, data2];
-                          return rv;
-                        }}
-                    />
+                      chartData.forEach((current, i) => {
+                        data1.push(current.numberOfTransfers);
+                        data2.push(current.value.toFixed(2));
+                        xAxis.push(chartData.length - i);
+                      });
+                      let rv = [xAxis, data1, data2];
+                      return rv;
+                    }}
+                  />
                 )}
               </Col>
               <Col lg={24} xl={24} xxl={12} md={24} xs={24}>
@@ -224,7 +237,6 @@ export function TbtcDashboard() {
                   </Tabs>
                 </div>
               </Col>
-
             </Row>
           </Content>
         </Layout>

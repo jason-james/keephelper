@@ -22,39 +22,50 @@ export function SkeletonDashboard() {
         </Row>
 
         <Row gutter={48} style={{ padding: "2rem" }}>
-            <Col lg={24} xl={24} xxl={12} md={24} xs={24} style={{ marginTop: "4rem" }}>
-                <div
-                    style={{
-                        height: "100%",
-                        width: "100%",
-                        backgroundColor: "white",
-                        textAlign: "center",
-                        paddingTop: "33%"
-                    }}
-                >
-                    <Skeleton.Avatar active />
-                </div>
-            </Col>
+          <Col
+            lg={24}
+            xl={24}
+            xxl={12}
+            md={24}
+            xs={24}
+            style={{
+                marginBottom: '2rem'
+            }}
+          >
+            <Row
+              style={{
+                height: "100%",
+                backgroundColor: "white",
+                width: "100%",
+                  marginBottom: '2rem'
+              }}
+              type="flex"
+              justify="center"
+              align="middle"
+            >
+              <Skeleton.Avatar active />
+            </Row>
+          </Col>
           <Col lg={24} xl={24} xxl={12} md={24} xs={24}>
             <div className="card-container dash-tabs">
               <Tabs type="card">
-                  <TabPane tab="Deposits" key="1">
-                      <List
-                          itemLayout="vertical"
-                          size="large"
-                          dataSource={listData}
-                          renderItem={item => (
-                              <Skeleton active avatar>
-                                  <List.Item.Meta
-                                      avatar={<Avatar src={item.avatar} />}
-                                      title={<a href={item.href}>{item.title}</a>}
-                                      description={item.description}
-                                  />
-                                  {item.content}
-                              </Skeleton>
-                          )}
-                      />{" "}
-                  </TabPane>
+                <TabPane tab="Deposits" key="1">
+                  <List
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={listData}
+                    renderItem={item => (
+                      <Skeleton active avatar>
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.avatar} />}
+                          title={<a href={item.href}>{item.title}</a>}
+                          description={item.description}
+                        />
+                        {item.content}
+                      </Skeleton>
+                    )}
+                  />{" "}
+                </TabPane>
                 <TabPane tab="Transfers" key="2">
                   <List
                     itemLayout="vertical"
@@ -91,27 +102,26 @@ export function SkeletonDashboard() {
                   />{" "}
                 </TabPane>
 
-                  <TabPane tab="View Your Deposits" key="4">
-                      <List
-                          itemLayout="vertical"
-                          size="large"
-                          dataSource={listData}
-                          renderItem={item => (
-                              <Skeleton active avatar>
-                                  <List.Item.Meta
-                                      avatar={<Avatar src={item.avatar} />}
-                                      title={<a href={item.href}>{item.title}</a>}
-                                      description={item.description}
-                                  />
-                                  {item.content}
-                              </Skeleton>
-                          )}
-                      />{" "}
-                  </TabPane>
+                <TabPane tab="View Your Deposits" key="4">
+                  <List
+                    itemLayout="vertical"
+                    size="large"
+                    dataSource={listData}
+                    renderItem={item => (
+                      <Skeleton active avatar>
+                        <List.Item.Meta
+                          avatar={<Avatar src={item.avatar} />}
+                          title={<a href={item.href}>{item.title}</a>}
+                          description={item.description}
+                        />
+                        {item.content}
+                      </Skeleton>
+                    )}
+                  />{" "}
+                </TabPane>
               </Tabs>
             </div>
           </Col>
-
         </Row>
       </Content>
     </Layout>

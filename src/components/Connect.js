@@ -57,7 +57,6 @@ export function Connect(props) {
               hoverable
               style={{
                 width: 450,
-                margin: "5% 38% 0 38%",
                 borderRadius: "0px"
               }}
             >
