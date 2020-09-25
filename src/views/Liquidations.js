@@ -72,7 +72,8 @@ const getLiquidationFeedColumns = callbackFn => {
         >
           {shortenEthAddress(text)}
         </a>
-      )
+      ),
+      fixed: 'left',
     },
     {
       title: "Keep",
@@ -539,6 +540,7 @@ export function Liquidations(props) {
                 <Table
                   columns={getLiquidationFeedColumns(startLiquidation)}
                   dataSource={feed}
+                  scroll={{ x: true }}
                 />
               )}
             </TabPane>
@@ -551,6 +553,7 @@ export function Liquidations(props) {
                     purchaseBondsAtAuction
                   )}
                   dataSource={liquidating}
+                  scroll={{ x: true }}
                 />
               )}
             </TabPane>
